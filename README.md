@@ -3,6 +3,7 @@ Laravel + Echo
 
 <p align="center"><img height="700" src="https://raw.githubusercontent.com/alikamal1/chat-app/master/screenshot.PNG"></p>
 
+## Project setup
 ```
 composer require laravel/ui
 php artisan ui vue --auth
