@@ -1,4 +1,7 @@
 # chat-app
+Laravel + Echo
+
+<p align="center"><img height="700" src="https://raw.githubusercontent.com/alikamal1/chat-app/master/screenshot.PNG"></p>
 
 ```
 composer require laravel/ui
