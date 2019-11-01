@@ -1,7 +1,7 @@
 <template>
     <div class="chat-app">
         <Conversaction :contact="selectedContact" :messages="messages" />
-        <ContactsList :contacts="contacts" />
+        <ContactsList :contacts="contacts" @selected="startConversionWith"/>
     </div>
 </template>
 
@@ -27,6 +27,22 @@
                 this.contacts = response.data;
             });
         },
+        methods: {
+            startConversionWith(contact) {
+                axios.get(`/conversation/${contact.id}`).then((response) => {
+                    this.messages = response.data;
+                    this.selectedContact = contact;
+                });
+            }
+        },
         components: {Conversaction, ContactsList}
     }
 </script>
+
+<style lang="scss" scoped>
+.chat-app {
+    display: flex,
+
+}
+
+</style>
