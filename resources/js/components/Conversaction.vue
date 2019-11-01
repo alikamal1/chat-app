@@ -1,47 +1,56 @@
 <template>
-    <div class="conversation">
-        <h1>{{ contact ? contact.name : "Select a Contact"}}</h1>
-        <MessagesFeed :contact="contact" :messages="messages" />
-        <MessagesComposer @send="sendMessage" />
-    </div>
+  <div class="conversation">
+    <h1>{{ contact ? contact.name : "Select a Contact"}}</h1>
+    <MessagesFeed :contact="contact" :messages="messages" />
+    <MessagesComposer @send="sendMessage" />
+  </div>
 </template>
 
 <script>
-import MessagesFeed from './MessagesFeed';
-import MessagesComposer from './MessagesComposer';
+import MessagesFeed from "./MessagesFeed";
+import MessagesComposer from "./MessagesComposer";
 export default {
-    props: {
-        contact: {
-            type: Object,
-            default: null
-        },
-        messages: {
-            type: Array,
-            default: []
-        }
+  props: {
+    contact: {
+      type: Object,
+      default: null
     },
-    methods: {
-        sendMessage(text) {
-            console.log(text);
-        }
-    },
-    components: {MessagesFeed, MessagesComposer}
-    
-}
+    messages: {
+      type: Array,
+      default: []
+    }
+  },
+  methods: {
+    sendMessage(text) {
+      if (!this.contact) {
+        return;
+      }
+      axios
+        .post("/conversation/send", {
+          contact_id: this.contact.id,
+          text: text
+        })
+        .then(response => {
+          this.$emit("new", response.data);
+        });
+    }
+  },
+  components: { MessagesFeed, MessagesComposer }
+};
 </script>
 
 <style lang="scss" scoped>
 .conversation {
-    flex: 5;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-    h1 {
-        font-size: 20px;
-        padding: 10px;
-        margin: 0;
-        border-bottom: 1px dashed rgb(204, 204, 204);
-    }
+  h1 {
+    font-size: 20px;
+    padding: 10px;
+    margin: 0;
+    border-bottom: 1px dashed rgb(204, 204, 204);
+  }
 }
 </style>

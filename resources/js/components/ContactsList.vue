@@ -1,87 +1,91 @@
 <template>
-    <div class="contacts-list">
-        <ul>
-            <li v-for="(contact, index) in contacts" :key="contact.id" @click="selectedContact(index, contact)" :class="{ 'selected': index == selected}">
-                <div class="avatar">
-                    <img :src="contact.profile_image" alt="contact.name">
-                </div>
-                <div class="contact">
-                    <p class="name">{{ contact.name }}</p>
-                    <p class="email">{{ contact.email }}</p>
-                </div>
-            </li>
-        </ul>
-    </div>
+  <div class="contacts-list">
+    <ul>
+      <li
+        v-for="(contact, index) in contacts"
+        :key="contact.id"
+        @click="selectedContact(index, contact)"
+        :class="{ 'selected': index == selected}"
+      >
+        <div class="avatar">
+          <img :src="contact.profile_image" alt="contact.name" />
+        </div>
+        <div class="contact">
+          <p class="name">{{ contact.name }}</p>
+          <p class="email">{{ contact.email }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 export default {
-    props: {
-        contacts: {
-            type: Array,
-            defaults: []
-        }
-    },
-    data() {
-        return {
-            selected: 0
-        }
-    },
-    methods: {
-       selectedContact(index, contact) {
-           this.selected = index;
-           this.$emit('selected', contact);
-       } 
+  props: {
+    contacts: {
+      type: Array,
+      defaults: []
     }
-}
+  },
+  data() {
+    return {
+      selected: 0
+    };
+  },
+  methods: {
+    selectedContact(index, contact) {
+      this.selected = index;
+      this.$emit("selected", contact);
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .contacts-list {
-    flex: 2;
-    max-height: 600px;
-    overflow: scroll;
-    border-left: 1px solid rgb(204, 204, 204);
-     ul {
-        list-style-type: none;
-        padding-left: 0;
-        li {
-            display: flex;
-            padding: 2px;
-            border-bottom: 1px solid rgb(204, 204, 204);
-            height: 80px;
-            position: relative;
-            cursor: pointer;
+  flex: 2;
+  max-height: 600px;
+  overflow: scroll;
+  border-left: 1px solid rgb(204, 204, 204);
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    li {
+      display: flex;
+      padding: 2px;
+      border-bottom: 1px solid rgb(204, 204, 204);
+      height: 80px;
+      position: relative;
+      cursor: pointer;
 
-            &.selected {
-                background:  rgb(204, 203, 203);
-            }
-        }
-        .avatar {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            img {
-                width: 35px;
-                border-radius: 50%;
-                margin: 0 auto;
-            }
-        }
-        .contact {
-            flex: 3;
-            display: flex;
-            flex-direction: column;
-            font-size: 10px;
-            overflow: hidden;
-            justify-content: center;
-            p {
-                margin: 0;
-                &.name {
-                    font-weight: bold;
-                }
-            }
-        }
+      &.selected {
+        background: rgb(204, 203, 203);
+      }
     }
-    
+    .avatar {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      img {
+        width: 35px;
+        border-radius: 50%;
+        margin: 0 auto;
+      }
+    }
+    .contact {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+      font-size: 10px;
+      overflow: hidden;
+      justify-content: center;
+      p {
+        margin: 0;
+        &.name {
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }
 </style>

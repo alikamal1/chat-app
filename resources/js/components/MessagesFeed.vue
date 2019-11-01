@@ -1,5 +1,5 @@
 <template>
-  <div class="feed">
+  <div class="feed" ref="feed">
     <ul v-if="contact">
       <li
         v-for="message in messages"
@@ -21,6 +21,22 @@ export default {
     messages: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    scrollToBottom() {
+      setTimeout(() => {
+        this.$refs.feed.scrollTop =
+          this.$refs.feed.scrollHeight - this.$refs.feed.clientHeight;
+      }, 50);
+    }
+  },
+  watch: {
+    contacts(contact) {
+      this.scrollToBottom();
+    },
+    messages(messages) {
+      this.scrollToBottom();
     }
   }
 };
@@ -58,7 +74,7 @@ export default {
         &.sent {
           text-align: left;
           .text {
-            background: rgb(147, 185, 183);
+            background: rgb(92, 204, 198);
           }
         }
       }
